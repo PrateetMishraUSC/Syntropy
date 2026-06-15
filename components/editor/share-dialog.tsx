@@ -102,7 +102,10 @@ export function ShareDialog({ open, onOpenChange, roomId, projectName }: ShareDi
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent
+        className="sm:max-w-md"
+        style={{ background: "rgba(8,8,9,0.72)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
+      >
         <DialogHeader>
           <DialogTitle>Share &ldquo;{projectName}&rdquo;</DialogTitle>
         </DialogHeader>

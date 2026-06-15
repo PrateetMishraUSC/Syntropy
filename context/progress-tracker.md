@@ -4,7 +4,7 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Current Phase
 
-- Feature 29: Spec UI Integration — Complete
+- Feature 30–34: GitHub Import Phase 1 — Complete
 
 ## Current Goal
 
@@ -41,6 +41,7 @@ Update this file whenever the current phase, active feature, or implementation s
 - 27-specs-generation-flow: POST /api/ai/spec accepts roomId/chatHistory/nodes/edges, authenticates user, resolves projectId from roomId via getAccessibleProject (never trusts client-supplied projectId), triggers generate-spec Trigger.dev task, creates TaskRun record for ownership tracking, returns runId + publicToken; POST /api/ai/spec/token accepts runId, verifies TaskRun ownership, issues 1h public token scoped to that run; trigger/generate-spec.ts schemaTask uses Zod for input validation, formats canvas nodes/edges and chat history into a structured prompt, calls Gemini 2.5 Flash via @ai-sdk/google, updates run metadata (status/message) for realtime tracking, returns plain Markdown spec content; npm run build passes.
 - 28-specs-persistence: ProjectSpec Prisma model added (id/projectId/filePath/createdAt, indexes on projectId and projectId+createdAt); migration applied (20260608024047_add_project_spec); generate-spec.ts updated to upload Markdown to Vercel Blob at specs/{projectId}/{specId}.md then create ProjectSpec record linking filePath; GET /api/projects/[projectId]/specs/[specId]/download authenticates user, verifies project access via getAccessibleProject, verifies spec belongs to project, fetches blob content with token, returns as Markdown attachment; npm run build passes.
 - 29-spec-ui-integration: GET /api/projects/[projectId]/specs lists ProjectSpecs (id/filePath/createdAt, auth + access check); GET /api/projects/[projectId]/specs/[specId]/content proxies Vercel Blob through server (no direct client blob access); react-markdown installed; SpecsTab component added to ai-sidebar.tsx — fetches spec list when tab becomes active, renders scrollable list (filename extracted from blob URL, formatted date, per-item download button revealed on hover), Dialog opens on click showing ReactMarkdown-rendered content with close + download actions in footer; AISidebar tracks active tab to drive lazy load; npm run build passes.
+- 30-34-github-import-phase1: Full Phase 1 GitHub Import implemented. trigger/lib/ extracted (canvas-tools.ts, apply-canvas-mutations.ts, task-status.ts) from design-agent.ts with zero behavior change. lib/github.ts fetch-based GitHub REST client with URL parser (supports all URL forms). lib/repo-analysis.ts analyzes repos via ≤22 API calls — 1 tree request, ≤18 bounded signal file reads, structured RepoAnalysis output. trigger/github-analyzer.ts durable Trigger.dev task: fetch → analyzeRepo → Gemini 2.5 Flash → applyCanvasMutations → Liveblocks. RepoImport Prisma model migrated (runId @unique, projectId, userId, status/counts/summary). POST /api/github/import triggers the task and issues a public realtime token; POST /api/github/import/token refreshes it. components/editor/github-import-modal.tsx: URL input, Add/Replace toggle (shown when canvas has content), live progress via useRealtimeRun, error states per failure type, auto-close on done. workspace-client.tsx: "Import" button (GitBranch icon) added to navbar before Templates, GitHubImportModal wired with roomId+projectId. npm run build passes.
 
 ## In Progress
 
@@ -51,9 +52,11 @@ Update this file whenever the current phase, active feature, or implementation s
 
 
 
+
+
 ## Next Up
 
-- Add the next planned feature unit here.
+- Phase 2 GitHub Import (specs 35–37): GitHub OAuth account connect, private repo access, repo browser UI. Start with 35-github-account-connect.md.
 
 ## Open Questions
 

@@ -15,4 +15,15 @@ export default defineConfig({
     },
   },
   maxDuration: 3600,
+  build: {
+    // Keep the heavy Prisma + pg dependency graph out of the bundle. Without this,
+    // esbuild re-bundles the entire generated client + driver adapters on every
+    // dev watch rebuild, which leaks heap until the worker OOM-crashes. These are
+    // available at runtime via node_modules, so they don't need bundling.
+    external: [
+      "@prisma/client",
+      "@prisma/adapter-pg",
+      "pg",
+    ],
+  },
 });

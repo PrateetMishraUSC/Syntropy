@@ -1,0 +1,27 @@
+enum RepoImportStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+model RepoImport {
+  id          String           @id @default(cuid())
+  projectId   String
+  userId      String
+  runId       String           @unique
+  repoUrl     String
+  repoOwner   String
+  repoName    String
+  repoBranch  String?
+  source      String           @default("url")
+  status      RepoImportStatus @default(PENDING)
+  nodeCount   Int?
+  edgeCount   Int?
+  summary     String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@index([projectId, createdAt])
+  @@index([userId])
+  @@index([runId])
+}

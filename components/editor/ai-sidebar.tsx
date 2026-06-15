@@ -728,9 +728,9 @@ export function AISidebar({ isOpen, onClose, roomId, projectId }: AISidebarProps
       inert={!isOpen}
       className={cn(
         "fixed top-12 right-0 bottom-0 z-30 w-80",
-        "flex flex-col bg-card border-l border-surface-border",
+        "flex flex-col bg-[#080809]/72 border-l border-white/[0.07]",
         "transition-transform duration-200 ease-in-out",
-        "shadow-[-4px_0_24px_rgba(0,0,0,0.4)] backdrop-blur-sm",
+        "shadow-[-4px_0_24px_rgba(0,0,0,0.4)] backdrop-blur-lg",
         isOpen ? "translate-x-0" : "translate-x-full"
       )}
     >
