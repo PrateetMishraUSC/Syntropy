@@ -1,4 +1,4 @@
-import { task, metadata } from "@trigger.dev/sdk/v3";
+import { task, metadata } from "@trigger.dev/sdk";
 import { generateText } from "ai";
 import { google } from "@ai-sdk/google";
 import { put } from "@vercel/blob";

@@ -758,12 +758,14 @@ export function CanvasFlow({ projectId, pendingTemplate, onTemplateConsumed, onS
       connectionLineStyle={{ stroke: "rgba(255,255,255,0.4)", strokeWidth: 1.5, strokeDasharray: "5 4" }}
       fitView
       colorMode="dark"
+      style={{ background: "#080809" }}
     >
       <Background
-        variant={BackgroundVariant.Lines}
+        variant={BackgroundVariant.Dots}
         gap={24}
-        lineWidth={1}
-        color="rgba(255,255,255,0.06)"
+        size={1}
+        color="rgba(255,255,255,0.10)"
+        bgColor="#080809"
       />
       <CanvasControls />
 <Panel position="bottom-center" style={{ marginBottom: "16px" }}>

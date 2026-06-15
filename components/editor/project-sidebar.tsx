@@ -134,7 +134,7 @@ export function ProjectSidebar({
         id="editor-project-sidebar"
         aria-hidden={!isOpen}
         inert={!isOpen}
-        className={cn("h-full w-72 flex flex-col bg-card border-r border-surface-border shadow-[4px_0_24px_rgba(0,0,0,0.4)] backdrop-blur-sm", className)}
+        className={cn("h-full w-72 flex flex-col bg-[#080809]/72 border-r border-white/[0.07] shadow-[4px_0_24px_rgba(0,0,0,0.4)] backdrop-blur-lg", className)}
       >
         <SidebarContent
           onClose={onClose}
@@ -167,7 +167,7 @@ export function ProjectSidebar({
         inert={!isOpen}
         className={cn(
           "fixed top-12 left-0 bottom-0 z-30 w-72",
-          "flex flex-col bg-card border-r border-surface-border shadow-[4px_0_24px_rgba(0,0,0,0.4)] backdrop-blur-sm",
+          "flex flex-col bg-[#080809]/72 border-r border-white/[0.07] shadow-[4px_0_24px_rgba(0,0,0,0.4)] backdrop-blur-lg",
           "transition-transform duration-200 ease-in-out",
           isOpen ? "translate-x-0 pointer-events-auto" : "-translate-x-full pointer-events-none",
           className

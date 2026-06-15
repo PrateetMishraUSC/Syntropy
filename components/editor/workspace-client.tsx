@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { Share2, Bot, LayoutTemplate, Loader2, Check, AlertCircle } from "lucide-react"
+import { Share2, Bot, LayoutTemplate, Loader2, Check, AlertCircle, GitBranch } from "lucide-react"
 import { LiveblocksProvider, RoomProvider, useOthers } from "@liveblocks/react"
 import { LiveObject, LiveMap } from "@liveblocks/client"
 import { useUser } from "@clerk/nextjs"
@@ -12,6 +12,7 @@ import { ProjectDialogs } from "@/components/editor/project-dialogs"
 import { ShareDialog } from "@/components/editor/share-dialog"
 import { CanvasRoom } from "@/components/editor/canvas-room"
 import { StarterTemplatesModal } from "@/components/editor/starter-templates-modal"
+import { GitHubImportModal } from "@/components/editor/github-import-modal"
 import { AISidebar } from "@/components/editor/ai-sidebar"
 import { ShortcutsPopover } from "@/components/editor/shortcuts-popover"
 import { Button } from "@/components/ui/button"
@@ -215,6 +216,7 @@ function WorkspaceContent({
   const [shareOpen, setShareOpen] = useState(false)
   const [templatesOpen, setTemplatesOpen] = useState(false)
   const [pendingTemplate, setPendingTemplate] = useState<CanvasTemplate | null>(null)
+  const [githubOpen, setGithubOpen] = useState(false)
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle")
   const actions = useProjectActions()
 
@@ -231,6 +233,10 @@ function WorkspaceContent({
     <>
       <PresenceBar />
       <SaveIndicator status={saveStatus} />
+      <Button variant="ghost" size="sm" className="gap-1.5 text-xs" style={{cursor: "pointer"}} onClick={() => setGithubOpen(true)}>
+        <GitBranch className="h-3.5 w-3.5" />
+        Import
+      </Button>
       <Button variant="ghost" size="sm" className="gap-1.5 text-xs" style={{cursor: "pointer"}} onClick={() => setTemplatesOpen(true)}>
         <LayoutTemplate className="h-3.5 w-3.5" />
         Templates
@@ -254,7 +260,7 @@ function WorkspaceContent({
   )
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="h-screen flex flex-col overflow-hidden dot-grid">
       <EditorNavbar
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen((v) => !v)}
@@ -273,7 +279,7 @@ function WorkspaceContent({
         activeRoomId={roomId}
       />
 
-      <main className="relative mt-12 flex-1 overflow-hidden bg-[#111114]">
+      <main className="relative mt-12 flex-1 overflow-hidden dot-grid">
         <CanvasRoom
           projectId={projectId}
           pendingTemplate={pendingTemplate}
@@ -283,6 +289,13 @@ function WorkspaceContent({
       </main>
 
       <AISidebar isOpen={aiOpen} onClose={() => setAiOpen(false)} roomId={roomId} projectId={projectId} />
+
+      <GitHubImportModal
+        open={githubOpen}
+        onOpenChange={setGithubOpen}
+        roomId={roomId}
+        projectId={projectId}
+      />
 
       <StarterTemplatesModal
         open={templatesOpen}

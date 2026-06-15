@@ -21,8 +21,11 @@ export function ShortcutsPopover() {
       </Button>
 
       <div
-        className="pointer-events-none absolute right-0 top-full z-50 mt-2 w-60 rounded-xl bg-card opacity-0 transition-all duration-150 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100"
+        className="pointer-events-none absolute right-0 top-full z-50 mt-2 w-60 rounded-xl opacity-0 transition-all duration-150 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100"
         style={{
+          background: "rgba(8,8,9,0.72)",
+          backdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(16px)",
           border: "1px solid rgba(255,255,255,0.1)",
           boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
         }}

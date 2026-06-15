@@ -19,7 +19,7 @@ export function EditorClient({ ownedProjects, sharedProjects }: EditorClientProp
   const actions = useProjectActions()
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col dot-grid">
       <EditorNavbar isOpen={sidebarOpen} onToggle={() => setSidebarOpen((v) => !v)} />
       <ProjectSidebar
         isOpen={sidebarOpen}

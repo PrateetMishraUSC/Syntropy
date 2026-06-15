@@ -172,3 +172,117 @@
     @apply font-sans;
     }
 }
+
+/* ── Landing / auth page: ambient glow + capability marquee ───────────── */
+@layer utilities {
+  @keyframes auth-glow-drift {
+    0%, 100% {
+      opacity: 0.55;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: translate3d(2%, -3%, 0) scale(1.06);
+    }
+  }
+
+  .auth-glow {
+    animation: auth-glow-drift 14s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  @keyframes auth-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      /* Track holds two copies; shift by exactly one copy for a seamless loop */
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .auth-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: auth-marquee 38s linear infinite;
+    will-change: transform;
+  }
+
+  .auth-marquee:hover .auth-marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* ── Living-canvas hero (sign-in landing) ─────────────────────────────── */
+@layer utilities {
+  @keyframes living-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes living-dash {
+    to {
+      stroke-dashoffset: -16;
+    }
+  }
+
+  @keyframes living-float-a {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(40px, -26px);
+    }
+  }
+
+  @keyframes living-float-b {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(-28px, 30px);
+    }
+  }
+
+  .living-node {
+    opacity: 0;
+    animation: living-in 0.55s ease both;
+  }
+
+  .living-ai {
+    animation: living-dash 1s linear infinite;
+  }
+
+  /* Shared dotted dark surface — matches the sign-in canvas background */
+  .dot-grid {
+    background-color: #080809;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-glow {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .auth-marquee-track {
+    animation: none;
+    justify-content: center;
+    width: 100%;
+  }
+  .living-node {
+    animation: none;
+    opacity: 1;
+  }
+  .living-ai {
+    animation: none;
+  }
+}

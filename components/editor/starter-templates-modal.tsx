@@ -153,7 +153,10 @@ export function StarterTemplatesModal({ open, onOpenChange, onImport }: StarterT
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl p-0 gap-0 overflow-hidden">
+      <DialogContent
+        className="sm:max-w-2xl p-0 gap-0 overflow-hidden"
+        style={{ background: "rgba(8,8,9,0.72)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
+      >
         <DialogHeader className="px-5 pt-5 pb-4 border-b border-border">
           <DialogTitle>Starter Templates</DialogTitle>
           <p className="text-sm text-muted-foreground">
